@@ -1,6 +1,18 @@
+using BLL;
+using BLL.InterfaceBLL;
+using DAL;
+using DAL.Interface;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+//BLL
+builder.Services.AddScoped<IAssetBLL, AssetBll>();
+
+//DAL
+builder.Services.AddScoped<IAssetDAL, AssetDal>();
+
+
 
 
 builder.Services.AddControllers();
