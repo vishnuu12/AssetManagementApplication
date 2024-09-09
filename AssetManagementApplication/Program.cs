@@ -1,4 +1,5 @@
 using BLL;
+using BLL.Interface;
 using BLL.InterfaceBLL;
 using DAL;
 using DAL.Interface;
@@ -11,6 +12,10 @@ builder.Services.AddScoped<IAssetBLL, AssetBll>();
 
 //DAL
 builder.Services.AddScoped<IAssetDAL, AssetDal>();
+
+builder.Services.AddScoped<IEmployeeDAL, EmployeeDAL>();
+
+builder.Services.AddScoped<IEmployeeBLL, EmployeeBLL>();
 
 
 
