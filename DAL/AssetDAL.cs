@@ -13,6 +13,7 @@ namespace DAL
             asset.Add(asset1);
             asset.Add(asset2);
             return asset;
+
         }
         public List<AssetModels> GetAssetBy(int id)
         {
