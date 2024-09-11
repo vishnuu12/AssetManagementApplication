@@ -4,20 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model.ViewModel
+namespace Model.Models
 {
-    //Summary
-    //This model is used for Assetmodule.
-    public class AssetModels
+    public class RoleModels
     {
-        public int Id { get; set; }
-        public string? Name { get; set; }
+        public int RoleId { get; set; }
+        public string? RoleName { get; set; }
         public string? Description { get; set; }
-
-        public string? AssetType { get; set; }
         public DateTime CreatedTime { get; set; }
         public string? CreatedBy { get; set; }
         public DateTime ModifiedTime { get; set; }
-        public string? ModifiedBy { get;set; }
+        public string? ModifiedBy { get; set; }
+
     }
 }

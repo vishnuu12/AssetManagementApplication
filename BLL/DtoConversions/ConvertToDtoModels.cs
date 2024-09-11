@@ -19,6 +19,7 @@ namespace BLL.DtoConversions
                 tempModel.Id = item.Id;
                 tempModel.Name = item.Name;
                 tempModel.Description = item.Description;
+                tempModel.AssetType = item.AssetType;
                 tempModel.CreatedTime = item.CreatedTime;
                 tempModel.CreatedBy = item.CreatedBy;
                 tempModel.ModifiedTime = item.ModifiedTime;

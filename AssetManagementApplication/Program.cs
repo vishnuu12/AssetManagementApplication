@@ -9,9 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 //BLL
 builder.Services.AddScoped<IAssetBLL, AssetBll>();
+builder.Services.AddScoped<IRoleBLL, RoleBLL>();
 
 //DAL
 builder.Services.AddScoped<IAssetDAL, AssetDal>();
+builder.Services.AddScoped<IRoleDAL, RoleDAL>();
+
 
 builder.Services.AddScoped<IEmployeeDAL, EmployeeDAL>();
 

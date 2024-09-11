@@ -1,28 +1,68 @@
 ﻿using DAL.Interface;
+using Dapper;
+using Microsoft.Extensions.Configuration;
 using Model.ViewModel;
+using System.Data.SqlClient;
 
 namespace DAL
 {
     public class AssetDal : IAssetDAL
     {
+        private readonly IConfiguration conn;
+        private readonly string _conString = string.Empty;
+        public AssetDal(IConfiguration _conn) 
+        {
+            this.conn = _conn;
+            this._conString = this.conn.GetConnectionString("DefaultConnection");
+        }
         public List<AssetModels> GetAssetAll()
         {
-            List<AssetModels> asset = new List<AssetModels>();
-            AssetModels asset1 = new AssetModels() {Id = 1,Name="Vinith",Description="HR",AssetType="aaa",CreatedTime= DateTime.Now,CreatedBy="Dhoni",ModifiedTime=DateTime.Now,ModifiedBy="Nayak"};
-            AssetModels asset2 = new AssetModels() {Id = 2,Name="ss",Description="HR",AssetType="aaa",CreatedTime= DateTime.Now,CreatedBy="Dhoni",ModifiedTime=DateTime.Now,ModifiedBy="Nayak"};
-            asset.Add(asset1);
-            asset.Add(asset2);
-            return asset;
+            var sql = @"
+select 
+    AssetId as Id,
+    BrandName as Name,
+    Description,
+    AssetType,
+    CreatedTime,
+    CreatedBy,
+    ModifiedTime,
+    ModifiedBy 
+from Assets;";
+            //var products = new List<AssetModels>();
 
+            using (var connection = new SqlConnection(_conString))
+            {
+                connection.Open();
+                var result = connection.Query<AssetModels>(sql).ToList();
+
+                return result;
+            }
         }
         public List<AssetModels> GetAssetBy(int id)
         {
-            List<AssetModels> asset = new List<AssetModels>();
-            AssetModels asset1 = new AssetModels() { Id = 1, Name = "Vinith", Description = "HR", AssetType = "aaa", CreatedTime = DateTime.Now, CreatedBy = "Dhoni", ModifiedTime = DateTime.Now, ModifiedBy = "Nayak" };
-            AssetModels asset2 = new AssetModels() { Id = 2, Name = "ss", Description = "HR", AssetType = "aaa", CreatedTime = DateTime.Now, CreatedBy = "Dhoni", ModifiedTime = DateTime.Now, ModifiedBy = "Nayak" };
-            asset.Add(asset1);
-            asset.Add(asset2);
-            return asset.Where(x => x.Id == id).ToList();
+            var sql = @"
+select 
+    AssetId as Id,
+    BrandName as Name,
+    Description,
+    AssetType,
+    CreatedTime,
+    CreatedBy,
+    ModifiedTime,
+    ModifiedBy 
+from Assets where BrandName = @AssetId;";
+            //var products = new List<AssetModels>();
+
+            using (var connection = new SqlConnection(_conString))
+            {
+                connection.Open();
+                var result = connection.Query<AssetModels>(sql, new
+                {
+                    AssetId = id,
+                }).ToList();
+
+                return result;
+            }
         }
         public int AddAsset()
         {
