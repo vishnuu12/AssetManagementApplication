@@ -1,4 +1,5 @@
-﻿using Model.Models;
+﻿using Model.DtoModels;
+using Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,8 @@ namespace DAL.Interface
         List<RoleModels> GetRoleAll();
         List<RoleModels> GetRoleBy(int id);
 
-        int AddRole();
-        bool UpdateRole();
+        int AddRole(RoleModels roleModels);
+        bool UpdateRole(RoleModels roleModels);
         bool DeleteRole(int id);
     }
 }

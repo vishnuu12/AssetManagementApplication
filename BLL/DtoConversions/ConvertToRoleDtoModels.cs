@@ -27,6 +27,20 @@ namespace BLL.DtoConversions
             }
             return roleDtoModels;
         }
+        public RoleModels ConvertToRoleModels(RoleDtoModels roleDtoModels)
+        {
+            RoleModels roleModels = new RoleModels()
+            {
+                RoleId = roleDtoModels.RoleId,
+                RoleName = roleDtoModels.RoleName,
+                Description = roleDtoModels.Description,
+                CreatedTime = roleDtoModels.CreatedTime,
+                CreatedBy = roleDtoModels.CreatedBy,
+                ModifiedTime = roleDtoModels.ModifiedTime,
+                ModifiedBy = roleDtoModels.ModifiedBy,
+            };
+            return roleModels;
+        }
 
     }
 }

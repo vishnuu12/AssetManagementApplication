@@ -4,13 +4,15 @@ namespace DAL.Interface
 {
     public interface IEmployeeDAL
     {
-      List<EmployeeDtoModel> GetAllEmployees(); //declare method here to hide the implementation
+      List<EmployeeModels> GetEmployeeAll(); //declare method here to hide the implementation
 
-      List<EmployeeModels> InsertEmployees();
 
-      List<EmployeeModels> UpdateEmployees();
+        public List<EmployeeModels> GetEmployeeBy(int id);
+        int AddEmployee(EmployeeModels employeeModels);
 
-      List<EmployeeModels> DeleteEmployees();
-       
+        bool UpdateEmployee(EmployeeModels employeeModels);
+
+        bool DeleteEmployee(int id);
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using Model.ViewModel;
+﻿using Model;
+using Model.ViewModel;
 
 namespace DAL.Interface
 {
@@ -7,9 +8,10 @@ namespace DAL.Interface
         List<AssetModels> GetAssetAll();
         List<AssetModels> GetAssetBy(int id);
 
-        int AddAsset ();
-        bool UpdateAsset();
+        int AddAsset (AssetModels assetModels);
+        bool UpdateAsset(AssetModels assetModels);
 
-        bool DeleteAsset();
+        bool DeleteAsset(int id);
+       
     }
 }

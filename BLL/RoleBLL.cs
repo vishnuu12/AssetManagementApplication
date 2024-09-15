@@ -34,15 +34,21 @@ namespace BLL
         }
         public int AddRole(RoleDtoModels roleDtoModels)
         {
-            return 0;
+            var role = this.ConvertToRoleModels(roleDtoModels);
+            var response = roleDAL.AddRole(role);
+            return response;
         }
         public bool UpdateRole(RoleDtoModels roleDtoModels)
         {
-            return true;
+            var role = this.ConvertToRoleModels(roleDtoModels);
+            var result = roleDAL.UpdateRole(role);
+            return result;
+
         }
         public bool DeleteRole(int id)
         {
-            return true;
+            var response = roleDAL.DeleteRole(id);
+            return response;
         }
     }
 }

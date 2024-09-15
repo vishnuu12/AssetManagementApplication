@@ -10,8 +10,8 @@ namespace Model.ViewModel
     //This model is used for Assetmodule.
     public class AssetModels
     {
-        public int Id { get; set; }
-        public string? Name { get; set; }
+        public int AssetId { get; set; }
+        public string? BrandName { get; set; }
         public string? Description { get; set; }
 
         public string? AssetType { get; set; }

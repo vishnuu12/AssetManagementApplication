@@ -29,21 +29,25 @@ namespace BLL
         }
         public int AddAsset(AssetDtoModels assetDtoModels)
         {
-            //var asset = ConvertToDtoModel(assetDtoModels);
-            //var response = assetDAL.AddAsset(asset);
-            return 0;
+            var asset = this.ConvertToAssetModels(assetDtoModels);
+            var response = assetDAL.AddAsset(asset);
+            return response;
         }
+
+       
         public bool UpdateAsset(AssetDtoModels assetDtoModels)
         {
            
-            return true;
+           var asset = ConvertToAssetModels(assetDtoModels);
+           var response = assetDAL.UpdateAsset(asset);
+            return response;
         }
 
         public bool DeleteAsset(int id)
         {
-            //var asset = ConvertToDtoModel(assetDtoModels);
-            //var response = assetDAL.AddAsset(asset);
-            return true;
+            
+          var asset = assetDAL.DeleteAsset(id);
+          return asset;
         }
     }
 }

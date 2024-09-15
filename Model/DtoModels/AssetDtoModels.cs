@@ -2,8 +2,8 @@
 {
     public class AssetDtoModels
     {
-        public int Id { get; set; }
-        public string? Name { get; set; }
+        public int AssetId { get; set; }
+        public string? BrandName { get; set; }
         public string? Description { get; set; }
 
         public string? AssetType { get; set; }

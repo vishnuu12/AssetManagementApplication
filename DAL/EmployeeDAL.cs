@@ -1,64 +1,131 @@
 ﻿using DAL.Interface;
+using Dapper;
+using Microsoft.Extensions.Configuration;
 using Model;
+using Model.Models;
+using Model.ViewModel;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace DAL
 {
     public class EmployeeDAL : IEmployeeDAL
     {
+        private readonly IConfiguration conn;
+        private readonly string? _connstring;
 
-        // create a list object to store temp data
-        
-        public List<EmployeeDtoModel> sample = new List<EmployeeDtoModel>(); 
+        public EmployeeDAL(IConfiguration conn)
+        {
+            this.conn = conn;
+            this._connstring = this.conn.GetConnectionString("DefaultConnection");
+        }
+
+
 
         /// <summary>
         /// get all the employee details using the below method
         /// </summary>
         /// <returns></returns>
-        public List<EmployeeDtoModel> GetAllEmployees()
+        /// 
+        // adding the sample data to the list   
+        public List<EmployeeModels> GetEmployeeAll()
         {
-            sample.Add(new EmployeeDtoModel // adding the sample data to the list 
+            var sql = @"select EmployeeId,Name,Email,PhoneNo,CreatedTime,CreatedBy,ModifiedTime,ModifiedBy,RoleId from Employee ";
+
+            using (var connection = new SqlConnection(_connstring))
             {
-                EmployeeId = 1,
-                Name = "prasanna",
-                Email = "Prasn@gmail.com",
-                PhoneNumber = "4976826431",
-                CreatedBy = "Vishnu",
-                CreatedTime = new DateTime()
+                connection.Open();
+                var result = connection.Query<EmployeeModels>(sql).ToList();
+                return result;
+            }
+        }
 
-            });
+        public List<EmployeeModels> GetEmployeeBy(int id)
+        {
+            var sql = @"select EmployeeId,Name,Email,PhoneNo,CreatedTime,CreatedBy,RoleId from Employee where EmployeeId=@EmployeeId;";
 
-            sample.Add(new EmployeeDtoModel
+            using (var connection = new SqlConnection(_connstring))
             {
-                EmployeeId = 2,
-                Name = "Rudra priyan",
-                Email = "rudra@gmail.com",
-                PhoneNumber = "7896124563",
-                CreatedBy = "Vivek",
-                CreatedTime = new DateTime()
-            });
+                var result = connection.Query<EmployeeModels>(sql, new
+                {
+                    EmployeeId = id,
+                }).ToList();
+                return result;
 
-            return sample;
-        }
-        /// <summary>
-        /// Insert the Employee Details to the list (or) db
-        /// </summary>
-        /// <param name="employeeModels"></param>
-        /// <returns></returns>
-        public List<EmployeeModels> InsertEmployees()
-        {
-           return null;
-        }
-        /// <summary>
-        /// Update details for Employeee details
-        /// </summary>
-        public List<EmployeeModels> UpdateEmployees()
-        {
-            return UpdateEmployees();
+            }
         }
 
-        public List<EmployeeModels> DeleteEmployees()
+        public int AddEmployee(EmployeeModels employeeModels)
         {
-           return DeleteEmployees();
+            var sql = @"Insert into Employee(Name,Email,PhoneNo,CreatedTime,CreatedBy,RoleId) values (@Name,@Email,@PhoneNo,@CreatedTime,@CreatedBy,@RoleId)";
+            using (var connection = new SqlConnection(_connstring))
+            {
+                var result = connection.Execute(sql, new
+                {
+                    employeeModels.Name,
+                    employeeModels.Email,
+                    employeeModels.PhoneNo,
+                    employeeModels.CreatedTime,
+                    employeeModels.CreatedBy,
+                    employeeModels.RoleId,
+
+                });
+                return result;
+            }
+        }
+
+        public bool UpdateEmployee(EmployeeModels employeeModels)
+        {
+            var isUpdated = false;
+
+            var sql = @"update Employee set Name = @Name,Email=@Email,PhoneNo=@PhoneNo,CreatedTime=@CreatedTime,CreatedBy=@CreatedBy,RoleId=@RoleId where EmployeeId=@EmployeeId";
+
+            using (var connection = new SqlConnection(_connstring))
+            {
+                var result = connection.Execute(sql, new
+                {
+                    employeeModels.EmployeeId,
+                    employeeModels.Name,
+                    employeeModels.Email,
+                    employeeModels.PhoneNo,
+                    employeeModels.CreatedTime,
+                    employeeModels.CreatedBy,
+                    employeeModels.RoleId,
+                });
+
+                if (result > 0)
+                {
+                    isUpdated = true;
+                }
+                else 
+                {
+                    isUpdated = false;
+                }
+
+            }
+            return isUpdated;
+        }
+
+        public bool DeleteEmployee(int id)
+        {
+            var isDeleted = false;
+
+            var sql = @"Delete from Employee where EmployeeId=@EmployeeId";
+
+            using (var connection = new SqlConnection(_connstring))
+            {
+                var result = connection.Execute(sql, new
+                {
+                    EmployeeId = id,
+                });
+
+                if (id > 0)
+                {
+                    isDeleted = true;
+                }
+                return isDeleted;
+            }
+
         }
     }
 }

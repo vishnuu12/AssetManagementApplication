@@ -1,60 +1,77 @@
 ﻿using BLL.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Model;
 
 namespace AssetManagementApplication.Controllers
 {
 
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
-
     public class EmployeeController : ControllerBase
     {
-        private readonly IEmployeeBLL _employeeBLL;
+        private readonly IEmployeeBLL employeeBLL;
         public EmployeeController(IEmployeeBLL employeeBLL)
         {
-            _employeeBLL = employeeBLL;
+            this.employeeBLL = employeeBLL;
         }
 
 
+        [Route("all")]
         [HttpGet]
-        [Route("GetAllEmployees")]
-        public IActionResult GetAllEmployees()
+
+        public IActionResult GetEmployeeAll()
         {
-            var result = _employeeBLL.GetAllEmployees();
+            var result = employeeBLL.GetEmployeeAll();
+            var response = new
+            {
+                status = 200,
+                response = result,
+                message = "Datas retrived",
 
+            };
+            return Ok(response);
+        }
+        [Route("{id}")]
+        [HttpGet]
+        public IActionResult GetEmployeeBy(int id)
+        {
+            var result = employeeBLL.GetEmployeeBy(id);
+            var response = new
+            {
+                status = 200,
+                response = result,
+                message = "Datas retrived",
 
-            return Ok(result);
+            };
+            return Ok(response);
+
         }
 
+        [Route("Add")]
         [HttpPost]
-        [Route("InsertEmployees")]
-        public IActionResult InsertEmployees()
+        public int  AddEmployee([FromBody] EmployeeDtoModel employeeDtoModel)
         {
-            //var result = _assetBLL.GetAllEmployees();
-
-
-            return Ok();
+            var response = employeeBLL.AddEmployee(employeeDtoModel);
+            return response;
+           
         }
 
-        [HttpPut]
-        [Route("UpdateEmployees")]
-        public IActionResult UpdateEmployees()
+        [Route("Update")]
+        [HttpPost]
+        public bool UpdateEmployee([FromBody] EmployeeDtoModel employeeDtoModel)
         {
-            //var result = _assetBLL.GetAllEmployees();
-
-
-            return Ok();
+           var response = employeeBLL.UpdateEmployee(employeeDtoModel);
+            return response;
         }
 
 
-            [HttpDelete]
-        [Route("DeleteEmployees")]
-        public IActionResult DeleteEmployees()
+
+        [Route("delete/{id}")]
+        [HttpDelete]
+        public bool DeleteEmployee(int id)
         {
-            //var result = _assetBLL.GetAllEmployees();
-
-
-            return Ok();
+            var response = employeeBLL.DeleteEmployee(id);
+            return response;
         }
     }
 }

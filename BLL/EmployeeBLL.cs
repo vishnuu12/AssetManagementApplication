@@ -1,36 +1,53 @@
-﻿using BLL.Interface;
+﻿using BLL.DtoConversions;
+using BLL.Interface;
+using DAL;
 using DAL.Interface;
 using Model;
 
 namespace BLL
 {
-    public class EmployeeBLL : IEmployeeBLL
+    public class EmployeeBLL :ConvertToEmployeeModels, IEmployeeBLL
     {
-        private readonly IEmployeeDAL _employeeDAL; 
+        private readonly IEmployeeDAL employeeDAL; 
         public EmployeeBLL(IEmployeeDAL employeeDAL)
         {
-            _employeeDAL = employeeDAL;
+            this.employeeDAL = employeeDAL;
         }
 
         
 
-        public List<EmployeeDtoModel> GetAllEmployees()
+        public List<EmployeeDtoModel> GetEmployeeAll()
         {
-            return _employeeDAL.GetAllEmployees();
+            var employee = employeeDAL.GetEmployeeAll();
+            var response = this.ConvertToEmployeeModel(employee);
+            return response;
+
+        }
+        public List<EmployeeDtoModel> GetEmployeeBy(int id)
+        {
+            var employee = employeeDAL.GetEmployeeBy(id);
+            var response = this.ConvertToEmployeeModel(employee);
+            return response;
+
         }
 
-        public List<EmployeeDtoModel> InsertEmployees()
+        public int AddEmployee(EmployeeDtoModel employeeDtoModel)
         {
-               return    InsertEmployees();
+            var employee = this.ConverToEmployeeModel(employeeDtoModel);
+            var response = employeeDAL.AddEmployee(employee);
+            return response;
         }
-        public List<EmployeeDtoModel> UpdateEmployees()
+        public bool UpdateEmployee(EmployeeDtoModel employeeDtoModel)
         {
-            return UpdateEmployees();
+            var employee = this.ConverToEmployeeModel(employeeDtoModel);
+            var response = employeeDAL.UpdateEmployee(employee);
+            return response;
         }
 
-        public List<EmployeeDtoModel> DeleteEmployees()
+        public bool DeleteEmployee(int id)
         {
-            return DeleteEmployees();
+            var response = employeeDAL.DeleteEmployee(id);
+            return response;
         }
     }
 }
