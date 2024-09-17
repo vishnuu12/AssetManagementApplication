@@ -10,15 +10,16 @@ var builder = WebApplication.CreateBuilder(args);
 //BLL
 builder.Services.AddScoped<IAssetBLL, AssetBll>();
 builder.Services.AddScoped<IRoleBLL, RoleBLL>();
+builder.Services.AddScoped<ILoginBLL, LoginBLL>();
+builder.Services.AddScoped<IEmployeeBLL, EmployeeBLL>();
+
 
 //DAL
 builder.Services.AddScoped<IAssetDAL, AssetDal>();
 builder.Services.AddScoped<IRoleDAL, RoleDAL>();
-
+builder.Services.AddScoped<ILoginDAL, LoginDAL>();
 
 builder.Services.AddScoped<IEmployeeDAL, EmployeeDAL>();
-
-builder.Services.AddScoped<IEmployeeBLL, EmployeeBLL>();
 
 
 

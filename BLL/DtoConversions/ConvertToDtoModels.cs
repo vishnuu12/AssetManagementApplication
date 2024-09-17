@@ -9,6 +9,7 @@ using DAL;
 
 namespace BLL.DtoConversions
 {
+    
     public abstract class ConvertToDtoModels
     {
         public List<AssetDtoModels> ConvertToDtoModel(List<AssetModels> asset)

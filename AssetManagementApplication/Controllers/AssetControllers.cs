@@ -8,10 +8,10 @@ namespace AssetManagementApplication.Controllers
     [ApiController]
     public class AssetControllers : ControllerBase
     {
-        private readonly IAssetBLL iAsset;
+        private readonly IAssetBLL _iAsset;
         public AssetControllers(IAssetBLL iAsset)
         {
-            this.iAsset = iAsset;
+            this._iAsset = iAsset;
         }
 
         [Route("all")]
@@ -19,7 +19,7 @@ namespace AssetManagementApplication.Controllers
 
         public IActionResult GetAssetAll()
         {
-            var result = iAsset.GetAssetAll();
+            var result = _iAsset.GetAssetAll();
             var response = new
             {
                 status = 200,
@@ -34,7 +34,7 @@ namespace AssetManagementApplication.Controllers
         [HttpGet]
         public IActionResult GetAssetBy(int id)
         {
-            var result = iAsset.GetAssetBy(id);
+            var result = _iAsset.GetAssetBy(id);
             var response = new
             {
                 status = 200,
@@ -50,7 +50,7 @@ namespace AssetManagementApplication.Controllers
 
         public int AddAsset([FromBody] AssetDtoModels assetDtoModels)
         {
-            var response = iAsset.AddAsset(assetDtoModels);
+            var response = _iAsset.AddAsset(assetDtoModels);
             return response;
         }
 
@@ -59,7 +59,7 @@ namespace AssetManagementApplication.Controllers
 
         public bool UpdateAsset([FromBody] AssetDtoModels assetDtoModels)
         {
-            var response = iAsset.UpdateAsset(assetDtoModels);
+            var response = _iAsset.UpdateAsset(assetDtoModels);
             return response;
         }
 
@@ -68,7 +68,7 @@ namespace AssetManagementApplication.Controllers
 
         public bool DeleteAsset(int id)
         {
-            var response = iAsset.DeleteAsset(id);
+            var response = _iAsset.DeleteAsset(id);
             return response;
         }
     }

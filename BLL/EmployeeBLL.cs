@@ -8,24 +8,24 @@ namespace BLL
 {
     public class EmployeeBLL :ConvertToEmployeeModels, IEmployeeBLL
     {
-        private readonly IEmployeeDAL employeeDAL; 
+        private readonly IEmployeeDAL _employeeDAL; 
         public EmployeeBLL(IEmployeeDAL employeeDAL)
         {
-            this.employeeDAL = employeeDAL;
+            this._employeeDAL = employeeDAL;
         }
 
         
 
         public List<EmployeeDtoModel> GetEmployeeAll()
         {
-            var employee = employeeDAL.GetEmployeeAll();
+            var employee = _employeeDAL.GetEmployeeAll();
             var response = this.ConvertToEmployeeModel(employee);
             return response;
 
         }
         public List<EmployeeDtoModel> GetEmployeeBy(int id)
         {
-            var employee = employeeDAL.GetEmployeeBy(id);
+            var employee = _employeeDAL.GetEmployeeBy(id);
             var response = this.ConvertToEmployeeModel(employee);
             return response;
 
@@ -34,19 +34,19 @@ namespace BLL
         public int AddEmployee(EmployeeDtoModel employeeDtoModel)
         {
             var employee = this.ConverToEmployeeModel(employeeDtoModel);
-            var response = employeeDAL.AddEmployee(employee);
+            var response = _employeeDAL.AddEmployee(employee);
             return response;
         }
         public bool UpdateEmployee(EmployeeDtoModel employeeDtoModel)
         {
             var employee = this.ConverToEmployeeModel(employeeDtoModel);
-            var response = employeeDAL.UpdateEmployee(employee);
+            var response = _employeeDAL.UpdateEmployee(employee);
             return response;
         }
 
         public bool DeleteEmployee(int id)
         {
-            var response = employeeDAL.DeleteEmployee(id);
+            var response = _employeeDAL.DeleteEmployee(id);
             return response;
         }
     }

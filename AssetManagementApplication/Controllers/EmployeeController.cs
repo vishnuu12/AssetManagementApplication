@@ -9,10 +9,10 @@ namespace AssetManagementApplication.Controllers
     [ApiController]
     public class EmployeeController : ControllerBase
     {
-        private readonly IEmployeeBLL employeeBLL;
+        private readonly IEmployeeBLL _employeeBLL;
         public EmployeeController(IEmployeeBLL employeeBLL)
         {
-            this.employeeBLL = employeeBLL;
+            this._employeeBLL = employeeBLL;
         }
 
 
@@ -21,7 +21,7 @@ namespace AssetManagementApplication.Controllers
 
         public IActionResult GetEmployeeAll()
         {
-            var result = employeeBLL.GetEmployeeAll();
+            var result = _employeeBLL.GetEmployeeAll();
             var response = new
             {
                 status = 200,
@@ -35,7 +35,7 @@ namespace AssetManagementApplication.Controllers
         [HttpGet]
         public IActionResult GetEmployeeBy(int id)
         {
-            var result = employeeBLL.GetEmployeeBy(id);
+            var result = _employeeBLL.GetEmployeeBy(id);
             var response = new
             {
                 status = 200,
@@ -51,7 +51,7 @@ namespace AssetManagementApplication.Controllers
         [HttpPost]
         public int  AddEmployee([FromBody] EmployeeDtoModel employeeDtoModel)
         {
-            var response = employeeBLL.AddEmployee(employeeDtoModel);
+            var response = _employeeBLL.AddEmployee(employeeDtoModel);
             return response;
            
         }
@@ -60,7 +60,7 @@ namespace AssetManagementApplication.Controllers
         [HttpPost]
         public bool UpdateEmployee([FromBody] EmployeeDtoModel employeeDtoModel)
         {
-           var response = employeeBLL.UpdateEmployee(employeeDtoModel);
+           var response = _employeeBLL.UpdateEmployee(employeeDtoModel);
             return response;
         }
 
@@ -70,7 +70,7 @@ namespace AssetManagementApplication.Controllers
         [HttpDelete]
         public bool DeleteEmployee(int id)
         {
-            var response = employeeBLL.DeleteEmployee(id);
+            var response = _employeeBLL.DeleteEmployee(id);
             return response;
         }
     }

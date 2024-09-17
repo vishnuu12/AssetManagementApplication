@@ -9,16 +9,16 @@ namespace AssetManagementApplication.Controllers
     [ApiController]
     public class RoleControllers : ControllerBase
     {
-        private readonly IRoleBLL iRoleBLL;
+        private readonly IRoleBLL _iRoleBLL;
         public RoleControllers(IRoleBLL iRoleBLL)
         {
-            this.iRoleBLL = iRoleBLL;
+            this._iRoleBLL = iRoleBLL;
         }
         [Route("all")]
         [HttpGet]
         public IActionResult GetRoleAll()
         {
-            var result = iRoleBLL.GetRoleAll();
+            var result = _iRoleBLL.GetRoleAll();
             var response = new
             {
                 status = 200,
@@ -33,7 +33,7 @@ namespace AssetManagementApplication.Controllers
 
         public IActionResult GetRoleBy(int id)
         {
-            var result = iRoleBLL.GetRoleBy(id);
+            var result = _iRoleBLL.GetRoleBy(id);
             var response = new
             {
                 status = 200,
@@ -49,7 +49,7 @@ namespace AssetManagementApplication.Controllers
 
         public int AddRole(RoleDtoModels roleDtoModels)
         {
-            var response = iRoleBLL.AddRole(roleDtoModels);
+            var response = _iRoleBLL.AddRole(roleDtoModels);
             return response;
         }
 
@@ -58,14 +58,14 @@ namespace AssetManagementApplication.Controllers
 
         public bool UpdateRole(RoleDtoModels roleDtoModels)
         {
-            var response = iRoleBLL.UpdateRole(roleDtoModels);
+            var response = _iRoleBLL.UpdateRole(roleDtoModels);
             return response;
         }
         [Route("Delete/{id}")]
         [HttpDelete]
         public bool DeleteRole(int id)
         {
-            var response = iRoleBLL.DeleteRole(id);
+            var response = _iRoleBLL.DeleteRole(id);
             return response;
         }
     }
